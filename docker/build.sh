@@ -44,7 +44,7 @@ build() {
     rm -rf "$tmpdir"
 }
 
-mkdir "$RESDIR"
+mkdir -p "$RESDIR"
 chmod a=rwx "$RESDIR"
 
 for buildsystem in make cmake ; do

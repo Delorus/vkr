@@ -236,14 +236,14 @@
     \renewcommand\Nir@BossPost{#2}\renewcommand\Nir@BossName{#3}
     \renewcommand\Nir@BossStamp{
         \parbox[t]{#1\linewidth}{
-            {\centering\MakeUppercase{\Nir@Confirm} % Confirmation name 
+            {\centering{\Nir@Confirm} % Confirmation name
 
             }
-            \vspace{5mm}
-            {\raggedright\Nir@BossPost          % Director job
+%            \vspace{5mm}
+            {\raggedright\centering\Nir@BossPost          % Director job
 
             }
-            \bigskip
+            \smallskip
             \ulfill~\Nir@BossName               % Director name
 
             \bigskip
@@ -303,6 +303,58 @@
     }
 } % ID of head executor of research
 \newcommand*\NirIspStamp[1]{\renewcommand\Nir@IspStamp{#1}}     % Changeable head executor stamp
+
+
+\newcommand\Nir@CtrlStamp[1]{\vspace{-2ex}}
+\newcommand\Nir@CtrlPost{
+    \vspace{3ex}
+    \hrule\par
+    \vspace{1ex}
+    \centering\footnotesize ответственный исполнитель
+}
+\newcommand\Nir@CtrlName{\makebox[5em]{\ulfill}}
+\newcommand*\NirCtrl[3][0.49]{
+\renewcommand\Nir@CtrlPost{#2}\renewcommand\Nir@CtrlName{#3}
+\renewcommand\Nir@CtrlStamp[1]{
+\parbox[t]{#1\linewidth}{
+{\raggedright\Nir@CtrlPost
+
+}
+\bigskip
+\ulfill~\Nir@CtrlName
+
+\bigskip
+<<\makebox[3em]{\ulfill}>>~\ulfill~\Nir@Year~г.
+}
+}
+} % ID of controller
+\newcommand*\NirCtrlStamp[1]{\renewcommand\Nir@CtrlStamp{#1}}     % Changeable controller stamp
+
+
+\newcommand\Nir@ExecStamp[1]{\vspace{-2ex}}
+\newcommand\Nir@ExecPost{
+\vspace{3ex}
+\hrule\par
+\vspace{1ex}
+\centering\footnotesize ответственный исполнитель
+}
+\newcommand\Nir@ExecName{\makebox[5em]{\ulfill}}
+\newcommand*\NirExec[3][0.49]{
+\renewcommand\Nir@ExecPost{#2}\renewcommand\Nir@ExecName{#3}
+\renewcommand\Nir@ExecStamp[1]{
+\parbox[t]{#1\linewidth}{
+{\raggedright\Nir@ExecPost
+
+}
+\bigskip
+\ulfill~\Nir@ExecName
+
+\bigskip
+<<\makebox[3em]{\ulfill}>>~\ulfill~\Nir@Year~г.
+}
+}
+} % ID of executor
+\newcommand*\NirExecStamp[1]{\renewcommand\Nir@ExecStamp{#1}}     % Changeable executor stamp
 
 %fix for first time compilation
 \newcommand\Nir@Title{\vspace{-2ex}}

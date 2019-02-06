@@ -8,7 +8,7 @@
         }
         \hspace{3em}\ulfill~\Nir@ManagerName
     }
-} 
+}
 \renewcommand*\NirIsp[3][0.49]{  % ID of head executor of research
     \renewcommand\Nir@IspPost{#2}\renewcommand\Nir@IspName{#3}
     \renewcommand\Nir@IspStamp[1]{
@@ -16,9 +16,29 @@
             \raggedright\Nir@IspPost
         }
             \hspace{3em}\ulfill~\Nir@IspName
-        
+
     }
-} 
+}
+\renewcommand*\NirCtrl[3][0.49]{  % ID of controller
+\renewcommand\Nir@CtrlPost{#2}\renewcommand\Nir@CtrlName{#3}
+\renewcommand\Nir@CtrlStamp[1]{
+\parbox[b]{#1\linewidth}{
+\raggedright\Nir@CtrlPost
+}
+\hspace{3em}\ulfill~\Nir@CtrlName
+
+}
+}
+\renewcommand*\NirExec[3][0.49]{  % ID of controller
+\renewcommand\Nir@ExecPost{#2}\renewcommand\Nir@ExecName{#3}
+\renewcommand\Nir@ExecStamp[1]{
+\parbox[b]{#1\linewidth}{
+\raggedright\Nir@ExecPost
+}
+\hspace{3em}\ulfill~\Nir@ExecName
+
+}
+}
 
 \newlength{\savedparskip}
 
@@ -51,21 +71,19 @@
 
         \parbox[t]{.45\linewidth}{
             \Nir@UdkName\\ % UDK name and number
-            \Nir@No\\       %Reg name and number
-            \Nir@InventarNo\\ %Inventory name and number
         }
         \hfill\Nir@BossStamp
 
         %\vspace{3ex}
         \vfill
 
-        \MakeUppercase{\Nir@AnnOtchet \Nir@ReportName}\\ % Annotated and Report name
-        \MakeUppercase{\Nir@About}         % Report about
+        \MakeUppercase{\Nir@TitleAndSubject}          % Report Subject
 
         \vspace{2ex}
-        \Nir@TitleAndSubject          % Report Subject
+        \MakeUppercase{\Nir@AnnOtchet \Nir@ReportName}\\ % Annotated and Report name
 
-        (\Nir@StageType)              % Stage type
+        \vspace{2ex}
+        \Nir@StageType              % Stage type
 
         \Nir@Code
 
@@ -80,12 +98,19 @@
 
         \Nir@IspStamp
 
+        \vspace{2ex}
+
+        \Nir@CtrlStamp
+
+        \vspace{2ex}
+
+        \Nir@ExecStamp
 
         \vfill
 
         \vfill
 
-        \Nir@Town~\Nir@Year
+        \textbf{\Nir@Town~\Nir@Year}
 
     \end{centering}
     \linespread{\Gost@LineSpread}\normalsize

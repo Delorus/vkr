@@ -17,7 +17,7 @@
 \include{macros.inc}
 
 % Стиль титульного листа и заголовки
-\include{00-title}
+\include{0-title}
 
 
 \begin{document}
@@ -39,36 +39,32 @@
 % \nobreakingbeforechapters
 % \breakingbeforechapters
 
-\include{00-abstract}
+\include{1-referat}
 
 \tableofcontents
 
 \printnomenclature % Автоматический список сокращений
 
-\include{12-intro}
+\include{2-intro}
 
 \mainmatter % это включает нумерацию глав и секций в документе ниже
 
-\include{20-analysis}
-\include{30-design}
-\include{40-impl}
-\include{50-research}
-\include{60-economics}
-\include{70-bzd}
+\include{3-requirements}
+\include{4-analysis}
+\include{5-impl}
+\include{6-usrmanual}
 
 \backmatter %% Здесь заканчивается нумерованная часть документа и начинаются ссылки и
             
-\include{80-conclusion}%% заключение
+\include{7-conclusion}%% заключение
 
 
-\include{81-biblio}
+\include{8-biblio}
 
 
 \appendix   % Тут идут приложения
 
-\include{90-appendix1}
-
-\include{91-appendix2}
+\include{9-appendix1}
 
 \end{document}
 

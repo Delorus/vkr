@@ -1,24 +1,25 @@
 \ProvidesPackage{local-minted}[2014/04/27 Local minted options]
 
-\ifdefined\NoMinted
-\else
 \usepackage{minted}
+\usemintedstyle{bw}
 
 % Сюда вставлять общие опции
-\def\mintedoptions{linenos,frame=single,fontsize=\footnotesize,style=bw,fontfamily=cyrillicfontttnoftr}
+%\def\mintedoptions{linenos,frame=single,fontsize=\footnotesize,style=bw,fontfamily=cyrillicfontttnoftr}
 
 % Сюда пихать новые языки
 \newcommand{\makenewmintedenviromnents}[1]{%
   \newminted{c}{#1}%
   \newminted{ebnf}{#1}%
   \newminted{python}{#1}%
+  \newminted{go}{#1}
   \newmintedfile{c}{#1}%
   \newmintedfile{ebnf}{#1}%
   \newmintedfile{python}{#1}%
+  \newmintedfile{go}{#1}%
 }
 
 % Магия! Здесь происходит непосредственное определение всех окружений
-\expandafter\makenewmintedenviromnents\expandafter{\mintedoptions}
+%\expandafter\makenewmintedenviromnents\expandafter{\mintedoptions}
 
 % \newcommand{\makenewinputminted}[1]{%
 % 	\renewcommand{\inputminted}[3][]{\inputminted[#1,##1]{##2}{##3}}
@@ -27,6 +28,5 @@
 % \expandafter\makenewinputminted\expandafter{\mintedoptions}
 
 \renewcommand{\listingscaption}{Листинг}
-\renewcommand{\listoflistingscaption}{Листинги} 
-\fi
+\renewcommand{\listoflistingscaption}{Листинги}
 \endinput

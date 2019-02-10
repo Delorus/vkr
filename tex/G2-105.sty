@@ -390,7 +390,7 @@
 %  Нумеруются все заголовки
 \setcounter{secnumdepth}{3}
 %  в оглавлении- тоже могут быть все.
-\setcounter{tocdepth}{4} %% virens: обычно только первый подраздел
+\setcounter{tocdepth}{3} %% virens: обычно только первый подраздел
 
 % Импорт необходимых пакетов
 \if@usehyperref
@@ -870,7 +870,7 @@
     \EqInChapter\PicInChapter\TableInChapter%
     \renewcommand\@chapapp{\appendixname}%
     \gdef\thechapter{\Asbuk{chapter}}%
-    \renewcommand\Gost@ChapterStyle{\Gost@StructChapterStyle}%
+    \renewcommand\Gost@ChapterStyle{\Gost@StructChapterStyle}%todo
     \setlength\Gost@ChapterIndent{0mm}%
     \let\@sect\Gost@old@sect%
 \renewcommand\@makechapterhead[1]{%
@@ -880,7 +880,9 @@
     \fi
     \par
     \interlinepenalty\@M
-    \Gost@ChapterStyle{##1}\par\nobreak
+    \GostTitleStyle{(обязательное)}
+    \par
+    \GostTitleStyle{##1}\par\nobreak
     \vspace{\GostAfterTitleSkip}
   }}
 

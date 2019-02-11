@@ -1,0 +1,27 @@
+\nomenclatureentry{XNaumen Contact Center@[{Naumen Contact Center}]\begingroup полнофункциональное программное решение для построения крупных и средних контактных центров.\nomeqref {0}|nompageref}{4}
+\nomenclatureentry{XNaumen@[{Naumen}]\begingroup российская компания, разработчик программного обеспечения, основана в 2001 году в Екатеринбурге.\nomeqref {0}|nompageref}{4}
+\nomenclatureentry{Y{001}WFM@[{WFM}]\begingroup информационная система управления проектами и прогнозирования рабочей нагрузки.\nomeqref {0}|nompageref}{4}
+\nomenclatureentry{Y{002}NCC@[{NCC}]\begingroup Naumen Contact Center.\nomeqref {0}|nompageref}{5}
+\nomenclatureentry{Y{003}RRS@[{RRS}]\begingroup Real-time report subsystem --- подсистема отчетов реального времени.\nomeqref {0}|nompageref}{6}
+\nomenclatureentry{Y{004}PMS@[{PMS}]\begingroup Project Management System --- система управления проектами.\nomeqref {0}|nompageref}{7}
+\nomenclatureentry{XNauCore@[{NauCore}]\begingroup Сервис шины управляющих сообщений, обеспечивает работу остальных сервисов NCC и их взаимодействие между собой.\nomeqref {0}|nompageref}{7}
+\nomenclatureentry{Y{005}TCP@[{TCP}]\begingroup Transmission Control Protocol --- протокол управления передачей.\nomeqref {0}|nompageref}{8}
+\nomenclatureentry{Y{006}СУБД@[{СУБД}]\begingroup система управления базой данных.\nomeqref {0}|nompageref}{8}
+\nomenclatureentry{XPostgreSQL@[{PostgreSQL}]\begingroup свободная объектно-реляционная система управления базами данных.\nomeqref {0}|nompageref}{8}
+\nomenclatureentry{XOracle DB или Oracle RDBMS@[{Oracle DB или Oracle RDBMS}]\begingroup объектно-реляционная~система управления базами данных компании Oracle.\nomeqref {0}|nompageref}{8}
+\nomenclatureentry{Y{007}API@[{API}]\begingroup Application Programming Interface --- программный интерфейс приложения.\nomeqref {0}|nompageref}{10}
+\nomenclatureentry{Y{008}БД@[{БД}]\begingroup база данных.\nomeqref {0}|nompageref}{10}
+\nomenclatureentry{Y{009}ЦП@[{ЦП}]\begingroup центральный процессор.\nomeqref {0}|nompageref}{10}
+\nomenclatureentry{XДамп памяти@[{Дамп памяти}]\begingroup содержимое рабочей памяти одного процесса, ядра или всей операционной системы.\nomeqref {0}|nompageref}{10}
+\nomenclatureentry{XТрассировка@[{Трассировка}]\begingroup отображение всех путей выполнения программы, с подсчетом времени выполнения.\nomeqref {0}|nompageref}{10}
+\nomenclatureentry{XКэш@[{Кэш}]\begingroup специальная область в памяти предназначенная для временного хранения информации и для быстрого доступа к ним.\nomeqref {0}|nompageref}{10}
+\nomenclatureentry{Y{010}SSL@[{SSL}]\begingroup Secure Sockets Layer --- уровень защищённых cокетов.\nomeqref {0}|nompageref}{11}
+\nomenclatureentry{Y{011}XML@[{XML}]\begingroup eXtensible Markup Language --- расширяемый язык разметки.\nomeqref {0}|nompageref}{13}
+\nomenclatureentry{Y{012}YAML@[{YAML}]\begingroup Yet Another Markup Language --- ещё один язык разметки.\nomeqref {0}|nompageref}{13}
+\nomenclatureentry{Y{013}JSON@[{JSON}]\begingroup JavaScript Object Notation --- текстовый формат обмена данными, основанный на JavaScript.\nomeqref {0}|nompageref}{13}
+\nomenclatureentry{Y{014}SQL@[{SQL}]\begingroup structured query language --- язык структурированных запросов.\nomeqref {0}|nompageref}{14}
+\nomenclatureentry{XRedis@[{Redis}]\begingroup резидентная система управления базами данных класса NoSQL с открытым исходным кодом, работающая со структурами данных типа <<ключ -- значение>>.\nomeqref {0}|nompageref}{20}
+\nomenclatureentry{XNauSnitch@[{NauSnitch}]\begingroup подсистема сбора данных по call-центру.\nomeqref {0}|nompageref}{20}
+\nomenclatureentry{Y{015}LAN@[{LAN}]\begingroup ЛВС --- локальная вычислительная сеть.\nomeqref {0}|nompageref}{34}
+\nomenclatureentry{Y{016}VoIP@[{VoIP}]\begingroup Voice-over-IP --- телефонная связь по протоколу IP.\nomeqref {0}|nompageref}{34}
+\nomenclatureentry{Xfull duplex@[{full duplex}]\begingroup дуплексная радиосвязь предусматривает одновременную двустороннюю передачу информации..\nomeqref {0}|nompageref}{34}

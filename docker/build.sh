@@ -12,6 +12,11 @@ ARGS_cmake_xelatex=""
 RESDIR="/doc/results"
 
 build() {
+
+    cp /doc/fonts/* /usr/share/fonts/
+    fc-cache -f -v
+#    luaotfload-tool -u -f
+
     local buildsystem=$1 ; shift
     local latex=$1 ; shift
 
@@ -48,7 +53,7 @@ mkdir -p "$RESDIR"
 chmod a=rwx "$RESDIR"
 
 for buildsystem in make cmake ; do
-    for latex in pdflatex xelatex ; do
+    for latex in xelatex ; do
         build ${buildsystem} ${latex}
     done
 done

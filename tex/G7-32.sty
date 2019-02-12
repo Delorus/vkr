@@ -77,17 +77,8 @@
 \newenvironment{abstract}{%То же самое, только как у белых людей -- Коротков И.
  \Referat
 }{}
-\newcommand\Defines{%глоссарий
-    \newpage
-    \section*{\centering ОПРЕДЕЛЕНИЯ}%Ugly hack((( FIXME
-}
-%\newcommand\Defines{%определения
-% \chapter*{Определения}%
-%}
-\newcommand\Abbreviations{%обозначения и сокращения
- \chapter*{Обозначения~и~%
-           сокращения}%
-}
+\newcommand\Defines{}
+\newcommand\Abbreviations{}
 \newcommand\Introduction{%введение
  \chapter{Введение}%
 }
@@ -504,18 +495,22 @@
 } % It should be used before any uses of \NirFinalStage, of course.
 
 % Обозначения и сокращения
-\RequirePackage{nomencl}%
+\RequirePackage[russian]{nomencl}%
 
 \def\three@digits#1{\ifnum#1>99\else\ifnum#1>9 0\else00\fi\fi\number#1}
 
 \newcounter{abbrev}%
-\newcommand{\Define}[2]{\nomenclature[X]{#1}{#2.}}%
+\newcounter{define}
+\newcommand{\Define}[2]{
+    \addtocounter{define}{1}%
+    \nomenclature[X{\three@digits{\value{define}}}]{#1}{#2.}
+}%
 \newcommand{\Abbrev}[2]{%
     \addtocounter{abbrev}{1}%
     \nomenclature[Y{\three@digits{\value{abbrev}}}]{#1}{#2.}%
 }%
 
-\renewcommand\nomname{}%
+\renewcommand\nomname{Определения, обозначения и сокращения}%
 \renewcommand\nomgroup[1]{%
     \if#1X%
         \Defines%
@@ -523,12 +518,18 @@
         \Abbreviations%
     \fi%
 }%
-\renewcommand\nomlabel[1]{#1 \cdash---\kern-0.4em}%
-\renewcommand\thenomenclature{%
-    \list{}{%
-        \let\makelabel\nomlabel%
-    }%
-}%
+
+\makeatletter
+\newdimen\nomwidest
+\renewcommand{\nomlabel}[1]{%
+\sbox\z@{#1\hspace{\labelsep}---}%
+\ifdim\nomwidest<\wd\z@\global\nomwidest\wd\z@\fi
+#1\hfil\hspace{\labelsep}---%
+}
+\renewcommand{\nompostamble}{%
+\protected@write\@auxout{}{\global\nomwidest=\the\nomwidest}%
+}
+\makeatother
 
 \makenomenclature%
 

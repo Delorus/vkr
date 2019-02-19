@@ -2,7 +2,8 @@
 
 skinparam {
     monochrome true
-    classFontSize 14
+    classFontSize 12
+    classAttributeFontSize 12
     defaultFontName Courier
 }
 

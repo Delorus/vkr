@@ -2,58 +2,18 @@
 
 skinparam {
     monochrome true
-    classFontSize 20
-    classAttributeFontSize 20
+    classFontSize 12
+    classAttributeFontSize 12
     defaultFontName Courier
 }
 
 interface Call << (I,empty) Interface >> {
     Load(*memoryStorage, []naubuddy.FullCallListLeg)
-    UpdateData(call *naubuddy.FullCallsListCall, timestamp int64)
+    UpdateData(*naubuddy.FullCallsListCall, int64)
     ProjectIDChanged() bool
     SpawnInboundCall() Call
     OnCallEnd(endTimestamp int64)
 }
-
-class callInfoBase << (S,empty) Structure >> {
-    ~sessionID string
-
-    ~projectID         string
-    ~createdTS         int64
-    ~endedTS           int64
-    ~targetServiceTime int64
-
-    ~threshold int
-
-    ~legs legsCollection
-
-    ~projectIDChanged bool
-
-    ~cached bool
-
-    ~model *ProjectModelRedis
-
-    ~spawnIgnoreLegBaseId string
-
-    ~blocked    bool
-    ~pmsProject string
-
-    __ implement Call __
-    +Load(storage *memoryStorage, legsData []naubuddy.FullCallListLeg)
-    +UpdateData(call *naubuddy.FullCallsListCall, timestamp int64)
-    +ProjectIDChanged() bool
-    +SpawnInboundCall() Call
-    +OnCallEnd(endedTS int64)
-    ..
-    ~cacheCall(callType CallType)
-    ~allLegsEnded()
-    ~isStarted()
-    ~isEnded()
-    ~updateParams(params *naubuddy.FullCallListParams)
-}
-
-callInfoBase --|> Call
-callInfoBase --o legsCollection
 
 enum callState << (E,empty) Enum >> {
     Undefined
@@ -65,198 +25,89 @@ enum callState << (E,empty) Enum >> {
     Ended
 }
 
-class InnerCallInfo << (S,empty) Structure >> {
-    __ Override __
-    UpdateData(call *naubuddy.FullCallsListCall, timestamp int64)
+class callInfoBase << (S,empty) Structure >> {
+    ~{field} ""Общие свойства звонка""
+    ~{field} ""Сервис доступа к Redis по проектам""
+
+    __ implement Call __
+    +""Реализация интерфейса Call""
+
+    ..
+    ~{method}""Общие методы звонка""
 }
 
-InnerCallInfo --* callInfoBase
+callInfoBase -|> Call
+callInfoBase --o legsCollection
+
+class InnerCallInfo << (S,empty) Structure >> {
+    __ Override __
+    UpdateData(*FullCallsListCall,int64)
+}
+
+InnerCallInfo -l-* callInfoBase
 
 class OutboundCallInfo << (S,empty) Structure >> {
-    ~queuedTS            int64
-    ~unblockedTS         int64
-    ~connectedTS         int64
-    ~callbackRequestedTS int64
-
-    ~ignoreLegBaseID string
-
-    ~ivrLeg    *legInfo
-    ~agentLeg  *legInfo
-    ~lastState callState
-
-    ~strict bool
+    ~{field} ""Свойства исходящего звонка""
 
     __ Override __
-    +UpdateData(call *naubuddy.FullCallsListCall, timestamp int64)
-    +OnCallEnd(endedTS int64)
+    +UpdateData(*FullCallsListCall,int64)
+    +OnCallEnd(int64)
 
     .. Update State ..
-    ~processEvent(call *naubuddy.FullCallsListCall, timestamp int64)
-    ~processProjectID(params *naubuddy.FullCallListParams, timestamp int64)
-    ~extractProjectID(params *naubuddy.FullCallListParams) (string, bool)
-    ~processUnblocked(timestamp int64)
-    ~processConnected(timestamp int64)
-    ~processEnded(endedTS int64)
-    ~onProjectIDChanged()
+    ~{method}""Обработка сообщений()""
 
     .. State Machine ..
-    ~cleanLastState(lastState callState)
-    ~markCallQueued()
-    ~markCallUnblocked()
-    ~markCallConnected()
-    ~markCallEnded()
+    ~{method}""Изменение статуса()""
 
     .. Collect data to DB ..
-    ~collect() *db.OutboundCallData
-    ~isUnblocked() bool
-    ~isProcessed() bool
-    ~holdDuration() int64
-    ~avgSpeedAnswer() int64
-    ~rt() int64
-    ~talkTime() int64
-    ~startedTS() int64
-    ~usesQueue() bool
-    ~externalNumber() string
-    ~isExternalConnected() bool
-    ~externalConnectedTime() int64
-    ~isAbandoned() bool
-    ~disconnectReason() *string
-
-    .. Other ..
-    ~getIVRLeg() *legInfo
-    ~getAgentLeg() *legInfo
-    ~hasAgentLeg() bool
-    ~externalLeg() *legInfo
-    ~agentConnected() string
+    ~{method}""Преобразование в сущность DB()""
 }
 
 OutboundCallInfo --* callInfoBase
 OutboundCallInfo --o legInfo
 
 class InboundCallInfo << (S,empty) Structure >> {
-    ~queuedTS            int64
-    ~unblockedTS         int64
-    ~connectedTS         int64
-    ~callbackRequestedTS int64
-
-    ~ignoreLegBaseID string
-
-    ~ivrLeg    *legInfo
-    ~agentLeg  *legInfo
-    ~lastState callState
+    ~{field} ""Свойства входящего звонка""
 
     __ Override __
-    +UpdateData(call *naubuddy.FullCallsListCall, timestamp int64)
-    +OnCallEnd(endedTS int64)
+    +UpdateData(*FullCallsListCall,int64)
+    +OnCallEnd(int64)
 
     .. Update State ..
-    ~processEvent(call *naubuddy.FullCallsListCall, timestamp int64)
-    ~processProjectID(params *naubuddy.FullCallListParams, timestamp int64)
-    ~processBlocked()
-    ~processUnblocked(timestamp int64)
-    ~processConnected(timestamp int64)
-    ~processEnded(endedTS int64)
-    ~processCallback(params *naubuddy.FullCallListParams, timestamp int64)
-    ~onProjectIDChanged()
+    ~{method}""Обработка сообщений()""
 
     .. State Machine ..
-    ~cleanLastState(lastState callState)
-    ~markCallAsBlocked()
-    ~markCallAsQueued()
-    ~markCallAsUnblocked()
-    ~markCallAsConnected()
-    ~markCallAsEnded()
-    ~markCallAsCallback()
+    ~{method}""Изменение статуса()""
 
     .. Collect data to DB ..
-    ~collect() *db.InboundCallData
-    ~isProcessed() bool
-    ~getAgentLeg() *legInfo
-    ~isProcessedAfterThreshold() bool
-    ~sumCallsDurationAppendix() int64
-    ~holdDuration() int64
-    ~isUnblocked() bool
-    ~avgSpeedAnswer() int64
-    ~rt() int64
-    ~talkTime() int64
-    ~startedTS() int64
-    ~hasAgentLeg() bool
-    ~usesQueue() bool
-    ~isAbandoned() bool
-    ~isAbandonedOnIVR() bool
-    ~isAbandonedOnHold() bool
-    ~isShortlyAbandoned() bool
-    ~isAbandonedAfterThreshold() bool
-    ~agentConnected() string
-
-    .. Other ..
-    ~isInIVR() bool
-    ~isBlocked() bool
-    ~activeAgentLeg() *legInfo
-    ~isWaiting() bool
-    ~isConnected() bool
-    ~externalNumber() string
-    ~externalLeg() *legInfo
-    ~getIVRLeg() *legInfo
+    ~{method}""Преобразование в сущность DB()""
 }
 
 InboundCallInfo --* callInfoBase
 InboundCallInfo --o legInfo
 
+class legInfo << (S,empty) Structure >> {
+    ~{field}""Состояние плеча""
+
+    ~updateData(*FullCallListLeg)
+
+    ~{method}""Вспомогательные методы""
+
+    ~collect(string) *db.LegData
+}
+
 class legsCollection << (S,empty) Structure >> {
     ~sessionID string
     ~legs      []legInfo
 
-    +UpdateLegs(storage *memoryStorage, legsData []naubuddy.FullCallListLeg)
+    +UpdateLegs(*memoryStorage,[]FullCallListLeg)
     +Copy() legsCollection
     +Collect() []*db.LegData
 
-    ~firstLeg() (*legInfo, error)
-    ~firstIVRLeg() *legInfo
-    ~hasAgentLeg(excludeUUID string) bool
-    ~firstAgentLeg(excludeUUID string, outbound bool) *legInfo
-    ~firstActiveLeg() *legInfo
-    ~lastOutgoingLeg() *legInfo
-    ~onCallEnd(endedTS int64)
-    ~areAllLegsEnded() bool
-    ~size() int
+    ~{method}""Вспомогательные методы()""
 }
 
 legsCollection --o legInfo
-
-class legInfo << (S,empty) Structure >> {
-    ~uuid string
-
-    ~sourceAbonent string
-    ~sourceID      string
-
-    ~distAbonent string
-    ~distID      string
-
-    ~createdTS   int64
-    ~connectedTS int64
-    ~endedTS     int64
-
-    ~disconnectReason string
-    ~direction        string
-
-    ~state string
-
-    ~storage *memoryStorage
-
-    ~updateData(legData *naubuddy.FullCallListLeg)
-    ~isIVR() bool
-    ~isToAgent() bool
-    ~isFromAgent() bool
-    ~isOutgoing() bool
-    ~isConnected() bool
-    ~isRinging() bool
-    ~duration() int64
-    ~pickupInterval() int64
-    ~isEnded() bool
-
-    ~collect(sessionID string) *db.LegData
-}
 
 hide interface fields
 hide enum methods

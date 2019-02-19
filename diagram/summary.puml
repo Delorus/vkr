@@ -1,0 +1,59 @@
+@startuml
+
+participant NauCore order 1
+participant Snitch order 3
+'participant CallProc order 4
+'participant AgentModel order 5
+participant Redis order 6
+participant DB order 7
+
+== Инициализация ==
+
+activate Snitch
+
+Snitch -> NauCore: регистрация
+activate NauCore
+
+Snitch <-- NauCore: id пира
+deactivate NauCore
+
+create CallProc order 4
+Snitch -> CallProc: создание
+
+create AgentModel order 5
+Snitch -> AgentModel: создание
+
+Snitch -> NauCore: регистрация интерфейсов \nи слушателей
+activate NauCore
+NauCore --> Snitch: успех
+deactivate NauCore
+
+Snitch -> Snitch: ожидание сообщений
+deactivate Snitch
+
+== Обработка сообщений ==
+
+NauCore -> Snitch: FullBuddyList
+activate Snitch
+Snitch -> AgentModel: FullBuddyList
+deactivate Snitch
+activate AgentModel
+
+NauCore -> Snitch: FullCallList
+activate Snitch
+
+AgentModel -->> Redis: обновление\nсостояния
+
+Snitch -> CallProc: FullCallList
+deactivate Snitch
+activate CallProc
+
+AgentModel -> DB: обновление\nсостояния
+deactivate AgentModel
+
+CallProc -->> Redis: обновление\nсостояния
+
+CallProc -> DB: обновление\nсостояния
+deactivate CallProc
+
+@enduml

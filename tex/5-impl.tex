@@ -261,8 +261,8 @@ Snitch регистрирует следующие интерфейсы:
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{inc/svg/class_call}
-    \caption{Диаграмма последовательности для обработки входящего вызова}
+    \includegraphics[width=\textwidth]{inc/svg/class_call}
+    \caption{Диаграмма классов для обработки звонков}
     \label{pic:call:uml-class}
 \end{figure}
 
@@ -285,7 +285,14 @@ Snitch регистрирует следующие интерфейсы:
     \item legInfo и legsCollection --- инкапсулирует логику для доступа и определения типа плеча вызова~%\cite{naumen:структура-вызова-и-его-идентификатор}.
 \end{itemize}
 
-%todo диаграмму классов для обработки операторов можно увидеть на следующем рисунке~\ref{}
+Диаграмму классов для обработки операторов можно увидеть на следующем рисунке~\ref{pic:agent:uml-class}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/svg/class_agent}
+    \caption{Диаграмма классов для обработки операторов}
+    \label{pic:agent:uml-class}
+\end{figure}
 
 Основной структурой для управления потоком обработки сообщений является AgentModel, которая выполняет следующие функции:
 \begin{itemize}

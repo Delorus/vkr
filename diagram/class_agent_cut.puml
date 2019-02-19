@@ -1,0 +1,71 @@
+@startuml
+
+skinparam {
+    monochrome true
+    classFontSize 12
+    classAttributeFontSize 12
+    defaultFontName Courier
+}
+
+hide interface fields
+hide enum methods
+
+interface db.Repository << (I,empty) Interface >> {
+    Save(data TxInserter) error
+}
+
+class StateData << (S,empty) Structure >> {
+	+Login         string
+	+DisplayName   string
+	+Status        string
+	+Timestamp     int64
+	+PrevStatus    string
+	+PrevTimestamp int64
+}
+
+
+interface ServiceDataStorage << (I,empty) Interface >> {
+    {method} ""Доступ к данным во внутреннем кэше""
+}
+
+interface StatisticDataStorage << (I,empty) Interface >> {
+    {method} ""Взаимодейсвие с Redis по агентам""
+}
+
+interface ProjectStatisticStorage << (I,empty) Interface >> {
+    {method} ""Взаимодейсвие с Redis по проектам""
+}
+
+class AgentModel << (S,empty) Structure >> {
+    ~{field} ""Сервисы доступа к данным""
+    ~{field} ""Мэнеджер очереди""
+
+	+{method} ""Работа с внутренним кэшем()""
+
+	+{method} ""Обработка сообщений()""
+
+	~{method} ""Обновление состояние оператора()""
+}
+
+AgentModel --o ServiceDataStorage
+AgentModel --o StatisticDataStorage
+AgentModel --o ProjectStatisticStorage
+AgentModel --o db.Repository
+
+class SubstateData << (S,empty) Structure >> {
+	+Status        string
+	+Login         string
+	+Substate      string
+	+Timestamp     int64
+	+Enabled       bool
+	+TotalTime     int64
+	+TotalCount    int64
+	+Reason        string
+	+PrevStatus    string
+	+PrevTimestamp int64
+	+PrevReason    string
+}
+
+
+
+@enduml

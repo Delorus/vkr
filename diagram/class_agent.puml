@@ -1,0 +1,111 @@
+@startuml
+
+skinparam {
+    monochrome true
+    classFontSize 12
+    classAttributeFontSize 12
+    defaultFontName Courier
+}
+
+hide interface fields
+hide enum methods
+
+package db {
+    interface Repository << (I,empty) Interface >> {
+        Save(data TxInserter) error
+    }
+}
+
+class StateData << (S,empty) Structure >> {
+	+Login         string
+	+DisplayName   string
+	+Status        string
+	+Timestamp     int64
+	+PrevStatus    string
+	+PrevTimestamp int64
+}
+
+
+interface ServiceDataStorage << (I,empty) Interface >> {
+    HasLogin(login string) bool
+    GetLoginType(login string) (string, bool)
+    AddNumber(number string, login string, loginType string)
+    AddLogin(login string, loginType string)
+
+    SetState(state *StateData)
+    GetState(login string) (*StateData, bool)
+    ChangeSubstates(login string, substates map[string]SubstateData)
+    GetSubstates(login string) (map[string]SubstateData, bool)
+    GetSubstatesNames(login string) []string
+    GetSubstate(login string, substateName string) (*SubstateData, bool)
+
+    DeleteLogin(login string)
+    DeleteLogins(...string)
+    DeleteNumbers(...string)
+
+    NonexistentLoginInfo(endpoints []c.FullBuddyListEndpoint) map[string]RemoveData
+    DeleteLoginInfo(rm RemoveData) //processor function for queue
+
+    CheckLoginType(login string, endpointType string) bool
+    CheckNumberType(number string, endpointType string) bool
+    IsAgentLogin(login string) bool
+    IsIvrLogin(login string) bool
+    IsAgentNumber(number string) bool
+    IsIvrNumber(number string) bool
+    IsAgent(agent string) bool
+}
+
+interface StatisticDataStorage << (I,empty) Interface >> {
+    GetBulkStatisticModel() BulkStatisticDataStorage
+}
+
+interface ProjectStatisticStorage << (I,empty) Interface >> {
+    GetCachedCalls(sessionID string) (map[string]string, error)
+    AddCallsInACW(projectID string, callType CallType, sessionID string, connectedTS int64)
+    RemoveCallInACW(projectID string, callType CallType, sessionID string)
+}
+
+class AgentModel << (S,empty) Structure >> {
+	~serviceClient    ServiceDataStorage
+	~statisticClient  StatisticDataStorage
+	~statisticProject ProjectStatisticStorage
+	~persistStorage   db.Repository
+	~agentProcessors  u.BalancedQueue
+
+	+SaveFBLLoginInfo(endp *c.FullBuddyListEndpoint)
+	+SaveLoginInfo(endp *c.FullBuddyListEndpoint)
+	+RemoveLoginInfo(data interface{})
+
+	+ProcessFullBuddyList(fbl *c.FullBuddyList)
+	+ProcessShortBuddyList(sbl *c.ShortBuddyList)
+	+ProcessBuddyListDiff(bld *c.BuddyListDiff)
+	+ProcessEndpoint(object interface{})
+
+	~saveLoginInfo(endpoint *c.FullBuddyListEndpoint, full bool)
+    ~updateFullBuddyListEndpoint(endp interface{})
+    ~updateShortBuddyListAgent(endp interface{})
+    ~getChangedSubstates(substates map[string]SubstateData) map[string]SubstateData
+}
+
+AgentModel --o ServiceDataStorage
+AgentModel --o StatisticDataStorage
+AgentModel --o ProjectStatisticStorage
+AgentModel --o Repository
+
+class SubstateData << (S,empty) Structure >> {
+	+Status        string
+	+Login         string
+	+Substate      string
+	+Timestamp     int64
+	+Enabled       bool
+	+TotalTime     int64
+	+TotalCount    int64
+	+Reason        string
+	+PrevStatus    string
+	+PrevTimestamp int64
+	+PrevReason    string
+}
+
+
+
+@enduml

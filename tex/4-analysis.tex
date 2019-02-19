@@ -175,7 +175,40 @@ Redis это высокооэффективное хранилище~\cite{}, %t
 
 \section{Функциональная модель}
 
+Описание функциональной модели выполнено в нотации IDEF0 на рисунке~\ref{pic:idef0:a0}.
+В качестве объекта описания с помощью функциональной модели была выбрана основная функция RRS --
+мониторинг за текущим состоянием call-центра и оперативное реагирование на изменения состояния.
 
+На рисунке~\ref{pic:idef0:a0:decompose} показана декомпозиция диаграммы вернего уровня,
+а на рисунках~\ref{pic:idef0:a1:decompose}~и~\ref{pic:idef0:a2:decompose} декомпозиция функциональных блоков.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/img/diagram0}
+    \caption{Функциональная модель мониторинга состояния call-центра в IDEF0}
+    \label{pic:idef0:a0}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/img/diagram1}
+    \caption{Декомпозиция функциональной модели А-0}
+    \label{pic:idef0:a0:decompose}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/img/diagram2}
+    \caption{Декомпозиция блока <<Настроить отображения отчетов>>}
+    \label{pic:idef0:a1:decompose}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/img/diagram4}
+    \caption{Декомпозиция блока <<Наблюдать за изменениями показателей>>}
+    \label{pic:idef0:a2:decompose}
+\end{figure}
 
 \section{Обоснование интерфейса пользователя}
 

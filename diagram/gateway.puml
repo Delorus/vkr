@@ -1,0 +1,50 @@
+@startuml
+
+skinparam {
+    monochrome true
+}
+
+participant NauCore order 1
+participant Gateway order 2
+participant NATS order 3
+
+group Request NauCore->NATS
+    NauCore -> Gateway: Request
+    activate NauCore
+    activate Gateway
+    hnote over Gateway: handleRequest()
+    Gateway -> NATS: Request
+    note right: Заменяет ID запроса NauCore,\nна автогенерируемый ID NATSа
+    activate NATS
+    Gateway <-- NATS: Response
+    deactivate NATS
+    note left: Производим обратную\nзамену ID
+    NauCore <-- Gateway: Response
+    deactivate Gateway
+    deactivate NauCore
+end
+
+group Command NauCore->NATS
+    NauCore -> Gateway: Command
+    activate Gateway
+    hnote over Gateway: handleCommand()
+    note right: Отправляем без\nпреобразований
+    Gateway -> NATS: Publish
+    deactivate Gateway
+end
+
+group Event NauCore->NATS
+    NauCore <- NATS: Command\Request
+    activate NATS
+    loop
+        NauCore -->> Gateway: Event
+        activate Gateway
+        hnote over Gateway: handleEvent()
+        note right: Если в Event есть ID,\nто подставляем его в Subj
+        Gateway -> NATS: Publish
+        deactivate Gateway
+        deactivate NATS
+    end
+end
+
+@enduml

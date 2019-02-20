@@ -1,5 +1,9 @@
 @startuml
 
+skinparam {
+    monochrome true
+}
+
 interface "NCC Proto" as NCCP
 interface "NATS Proto" as NATSP
 

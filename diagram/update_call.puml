@@ -1,7 +1,10 @@
 @startuml
-start
 
-title Алгоритм обновление состояния \n входящих звонков
+skinparam {
+    monochrome true
+}
+
+start
 
 :Получение сообщения \nFullCallList/ShortCallList;
 

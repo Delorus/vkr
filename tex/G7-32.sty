@@ -412,7 +412,7 @@
 % Following allows to change command arguments
 \newcommand\finalname[1]{\renewcommand\@finalname{#1}}          % to change finalname  text
 
-\newcommand\Nir@Code{шифр\,---\,\makebox[6em]{\ulfill}}
+\newcommand\Nir@Code{шифр\,--\,\makebox[6em]{\ulfill}}
 \newcommand*\NirCode[1]{\renewcommand\Nir@Code{#1}} % Code of report changeable
 
 
@@ -522,9 +522,9 @@
 \makeatletter
 \newdimen\nomwidest
 \renewcommand{\nomlabel}[1]{%
-\sbox\z@{#1\hspace{\labelsep}---}%
+\sbox\z@{#1\hspace{\labelsep}--}%
 \ifdim\nomwidest<\wd\z@\global\nomwidest\wd\z@\fi
-#1\hfil\hspace{\labelsep}---%
+#1\hfil\hspace{\labelsep}--%
 }
 \renewcommand{\nompostamble}{%
 \protected@write\@auxout{}{\global\nomwidest=\the\nomwidest}%

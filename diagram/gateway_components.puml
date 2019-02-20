@@ -1,0 +1,20 @@
+@startuml
+
+interface "NCC Proto" as NCCP
+interface "NATS Proto" as NATSP
+
+[NauCore] - NCCP
+
+NCCP <. [Gateway]: impl
+
+NATSP - [NATS]
+
+[Gateway] .> NATSP: impl
+
+NATSP <.. [Gateway Client]: impl
+
+API - [Gateway Client]
+
+[Snitch] .> API: use
+
+@enduml

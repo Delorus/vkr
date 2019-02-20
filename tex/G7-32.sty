@@ -499,24 +499,16 @@
 
 \def\three@digits#1{\ifnum#1>99\else\ifnum#1>9 0\else00\fi\fi\number#1}
 
-\newcounter{abbrev}%
-\newcounter{define}
 \newcommand{\Define}[2]{
-    \addtocounter{define}{1}%
-    \nomenclature[X{\three@digits{\value{define}}}]{#1}{#2.}
+    \nomenclature{#1}{#2.}
 }%
 \newcommand{\Abbrev}[2]{%
-    \addtocounter{abbrev}{1}%
-    \nomenclature[Y{\three@digits{\value{abbrev}}}]{#1}{#2.}%
+    \nomenclature{#1}{#2.}%
 }%
 
 \renewcommand\nomname{Определения, обозначения и сокращения}%
 \renewcommand\nomgroup[1]{%
-    \if#1X%
-        \Defines%
-    \else%
-        \Abbreviations%
-    \fi%
+    \Defines%
 }%
 
 \makeatletter

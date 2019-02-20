@@ -1,0 +1,33 @@
+Bus:
+  Address: localhost:3242
+  #  Максимальный размер сообщения, который может обработать снитч
+  MaxPayload: 3145728 # 3MB
+
+KeyFile: /opt/naumen/nauphone/cfg/naucore/key.service.nausnitch.xml
+
+Log:
+  #  panic | fatal | error | (warn | warning) | info | debug
+  Level: debug # можно менять во время работы приложения
+  File: /opt/naumen/nauphone/log/nausnitchgo.log # default: stdout
+
+Database:
+  #Driver: oracle
+  #DataSource: naucrm/naucrm@//localhost:1521/naumendb
+  Driver: postgres
+  DataSource: postgres://naucrm:naucrm@localhost/naumendb?sslmode=disable
+  MaxConns: 10
+  CreateSummaryInterval: 20s
+  CleanDBInterval: 30m
+
+
+Redis:
+  URL: localhost:6379
+  ConnTimeout: 1m
+  DB: 0
+  OperationTimeout: 2m
+  #Password: pass
+  PoolSize: 10
+
+# InnerAsOuter: [123456]
+
+# DebugPort: 4242

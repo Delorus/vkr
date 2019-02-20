@@ -1,13 +1,5 @@
 package gateway
 
-import (
-	"sync"
-	"testing"
-	"time"
-
-	"github.com/stretchr/testify/assert"
-)
-
 func TestConnControl_NotifyClosed(t *testing.T) {
 	control := NewConnControl()
 

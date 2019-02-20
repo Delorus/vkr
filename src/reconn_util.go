@@ -1,12 +1,5 @@
 package gateway
 
-import (
-	"errors"
-	"sync"
-
-	"github.com/tevino/abool"
-)
-
 type Status int
 
 const (

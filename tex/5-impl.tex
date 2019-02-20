@@ -290,12 +290,12 @@ Snitch регистрирует интерфейсы перечисленные 
 
 Диаграмму классов для обработки звонков можно увидеть на рисунке~\ref{pic:call:uml-class}.
 
-%\begin{figure}[!ht]
-%    \centering
-%    \includegraphics[width=\textwidth]{inc/svg/class_call}
-%    \caption{Диаграмма классов для обработки звонков}
-%    \label{pic:call:uml-class}
-%\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/svg/class_call}
+    \caption{Диаграмма классов для обработки звонков}
+    \label{pic:call:uml-class}
+\end{figure}
 
 Обработкой звонков занимается структура CallProcessor.
 Эта структура выполняет следующие функции:
@@ -318,12 +318,12 @@ Snitch регистрирует интерфейсы перечисленные 
 
 Диаграмму классов для обработки операторов можно увидеть на следующем рисунке~\ref{pic:agent:uml-class}.
 
-%\begin{figure}[!ht]
-%    \centering
-%    \includegraphics[width=\textwidth]{inc/svg/class_agent}
-%    \caption{Диаграмма классов для обработки операторов}
-%    \label{pic:agent:uml-class}
-%\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/svg/class_agent}
+    \caption{Диаграмма классов для обработки операторов}
+    \label{pic:agent:uml-class}
+\end{figure}
 
 Основной структурой для управления потоком обработки сообщений является AgentModel, которая выполняет следующие функции:
 \begin{itemize}
@@ -341,12 +341,12 @@ Snitch регистрирует интерфейсы перечисленные 
     \item надстройка над стандартным клиентом NATS\@.
 \end{itemize}
 
-%\begin{figure}[!ht]
-%    \centering
-%    \includegraphics[width=\textwidth]{inc/svg/gateway_components}
-%    \caption{Диаграмма блоков клиента шины}
-%    \label{pic:gateway:components}
-%\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/svg/gateway_components}
+    \caption{Диаграмма блоков клиента шины}
+    \label{pic:gateway:components}
+\end{figure}
 
 Шлюз выполняет следующие функции:
 \begin{itemize}
@@ -411,19 +411,19 @@ Snitch регистрирует интерфейсы перечисленные 
 что вызов сохраняется в подсистему для хранения нечувствительной ко времени информации только после того как был завершен,
 а не на каждое изменение.
 
-%\begin{figure}[!ht]
-%    \centering
-%    \includegraphics[width=0.8\textwidth]{inc/svg/update_agent}
-%    \caption{Диаграмма обновления состояния оператора}
-%    \label{pic:agent:activity-update}
-%\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{inc/svg/update_agent}
+    \caption{Диаграмма обновления состояния оператора}
+    \label{pic:agent:activity-update}
+\end{figure}
 
-%\begin{figure}[!ht]
-%    \centering
-%    \includegraphics[width=\textwidth]{inc/svg/update_call}
-%    \caption{Диаграмма обновления состояния звонка}
-%    \label{pic:call:activity-update}
-%\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/svg/update_call}
+    \caption{Диаграмма обновления состояния звонка}
+    \label{pic:call:activity-update}
+\end{figure}
 
 \subsection{Алгоритм конвертации сообщений в шлюзе}\label{subsec:алгоритм-конвертации-сообщений-в-шлюзе}
 
@@ -455,13 +455,14 @@ NauCore использует две модели распространения 
 
 Поэтому процесс преобразования сообщений выглядит так, как показан на диаграмме~\ref{pic:gateway:seq}.
 
-%\begin{figure}[!ht]
-%    \centering
-%    \includegraphics[width=\textwidth]{inc/svg/gateway_seq}
-%    \caption{Диаграмма последовательности преобразования сообщений}
-%    \label{pic:gateway:seq}
-%\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{inc/svg/gateway_seq}
+    \caption{Диаграмма последовательности преобразования сообщений}
+    \label{pic:gateway:seq}
+\end{figure}
 
+\clearpage
 
 \section{Описание таблицы БД}\label{sec:описание-таблицы-бд}
 
@@ -587,10 +588,10 @@ NauCore использует две модели распространения 
         \\ \hline
 \thead{Поле} & \thead{Тип} & \thead{Описание} \\
         \hline \endfirsthead
-        \hline
-\thead{Поле} & \thead{Тип} & \thead{Описание} \\
-        \hline
-        \endhead
+%        \hline
+%\thead{Поле} & \thead{Тип} & \thead{Описание} \\
+%        \hline
+%        \endhead
         \hline \endlastfoot
         collected\_ts &
         Временная метка &
@@ -689,7 +690,8 @@ NauCore использует две модели распространения 
     \begin{longtable}{|p{0.3\textwidth}|p{0.15\textwidth}|p{0.4\textwidth}|}
         \caption{Таблица ns\_inbound\_call\_data}
         \label{tab:db:ns-inbound-call-data}
-        \\ \hline
+        \\
+        \hline
 \thead{Поле} & \thead{Тип} & \thead{Описание} \\
         \hline \endfirsthead
         \hline
